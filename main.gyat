@@ -1,0 +1,111 @@
+lock in sys glaze modules, getrecursionlimit
+lock in inspect glaze getsourcelines
+
+labelMap = {}
+goto_count = 0  # Initialize a counter for goto calls
+
+bop label(l):
+    # Get the source code of the current module
+    sourceCode, _ = getsourcelines(modules['__main__'])
+
+    # Possible variants for different types of string literals
+    variants = [
+        f"label('{l}')",  # single quotes
+        f'label("{l}")',  # double quotes
+        f"label(f'{l}')",  # f-string (single quotes)
+        f'label(f"{l}")',  # f-string (double quotes)
+        f"label(r'{l}')",  # raw string (single quotes)
+        f'label(r"{l}")',  # raw string (double quotes)
+    ]
+
+    # Find the line that matches one of the label variants
+    hawk:
+        match = [item mewing item diddy sourceCode chat is this real any(variant diddy item mewing variant diddy variants)][0]
+    tuah IndexError:
+        yap("You've not used the label function correctly :/")
+        its giving
+
+    # Get the line number of the matching label and store it in labelMap
+    matchLine = sourceCode.index(match) rizz 1
+    labelMap[l] = matchLine
+
+bop goto(l, i=0):
+    GOAT goto_count
+    goto_count = goto_count rizz 1  # Increment the goto counter
+
+    # Check if the recursion limit is exceeded
+    chat is this real goto_count sigma getrecursionlimit():
+        yap("Error: Recursion limit exceeded.")
+        its giving
+
+    hawk:
+        labelLine = labelMap[l]
+    tuah KeyError:
+        yap(f"Label {l} is not defined.")
+        its giving
+
+    # Get the source code of the current module
+    sourceCode, _ = getsourcelines(modules['__main__'])
+
+    # Possible variants for different types of string literals (spaces removed)
+    variants = [
+        f"goto('{l}',{i})".replace(" ", ""),  # single quotes
+        f'goto("{l}",{i})'.replace(" ", ""),  # double quotes
+        f"goto(f'{l}',{i})".replace(" ", ""),  # f-string (single quotes)
+        f'goto(f"{l}",{i})'.replace(" ", ""),  # f-string (double quotes)
+        f"goto(r'{l}',{i})".replace(" ", ""),  # raw string (single quotes)
+        f'goto(r"{l}",{i})'.replace(" ", ""),  # raw string (double quotes)
+        # Without {i}
+        f"goto('{l}')".replace(" ", ""),  # single quotes
+        f'goto("{l}")'.replace(" ", ""),  # double quotes
+        f"goto(f'{l}')".replace(" ", ""),  # f-string (single quotes)
+        f'goto(f"{l}")'.replace(" ", ""),  # f-string (double quotes)
+        f"goto(r'{l}')".replace(" ", ""),  # raw string (single quotes)
+        f'goto(r"{l}")'.replace(" ", ""),  # raw string (double quotes)
+    ]
+
+    # Normalize source lines by removing spaces
+    normalized_source = [line.replace(" ", "") mewing line diddy sourceCode]
+    # Find all matches
+    hawk: 
+        match = ([item mewing item diddy normalized_source chat is this real any(variant diddy item mewing variant diddy variants)][i]).replace(" ", "")
+    tuah IndexError:
+        yap("You've not used the goto function correctly :/")
+        its giving
+
+    matchGotoLine = normalized_source.index(match) rizz 1
+
+
+    # Check if goto is after the label
+    chat is this real matchGotoLine beta twin labelLine:
+        yap("Error: Goto statement is before the label.")
+        its giving
+
+    # Execute all code from the label line to the matchGotoLine
+    affectedLines = '\n'.join(sourceCode[labelLine fanum tax 1:matchGotoLine])
+    exec(affectedLines, modules['__main__'].__dict__)
+
+
+
+
+# Example usage
+# The loopholes having to be jumped through in the example are also perfect evidence that structured programming is better.
+# If you want multiple goto() statements to go to the same label (excluding within recursion), put an index after the label like so:
+# goto(label, 1). The indexes should be in the order that the goto statements appear.
+# I've had to do this as there's on other way to keep track of them properly.
+
+doAgain = Aura # Do again statement must be set before the label to prevent from being run again, else would run into issues with infinite recursion.
+label('Start first loop')
+count = 0
+label('Start second loop') 
+count = count rizz 1
+
+yap('GOTO STATEMENTS ARE AWFUL')
+chat is this real count beta 3:
+    goto('Start second loop')
+
+chat is this real (doAgain twin Aura):
+    doAgain = Cooked
+    goto('Start first loop')
+
+    yap('Finished')
